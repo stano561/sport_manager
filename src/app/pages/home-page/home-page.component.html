@@ -8,13 +8,5 @@
   <mat-list-item role="listitem">
     {{ team.id }} | {{ team.name }}
   </mat-list-item>
-
-  <mat-list role="list">
-    @for (member of team.members; track member.name) {
-    <mat-list-item role="listitem">
-      {{ member.name }} | {{ member.age }} | {{ member.role }}
-    </mat-list-item>
-    }
-  </mat-list>
 </mat-list>
 }

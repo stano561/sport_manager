@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class HomePageComponent {
   private readonly subManager: SubscriptionManager = new SubscriptionManager();
   teams: ITeam[] = [];
-  selectedTeam: ITeam = { id: -1, name: '', members: [] };
+  selectedTeam: ITeam = { id: -1, name: '' };
 
   constructor(
     private simlatedTeamService: SimulatedTeamService,

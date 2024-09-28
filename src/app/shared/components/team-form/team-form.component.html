@@ -1,1 +1,16 @@
 <p>team-form works!</p>
+<form [formGroup]="teamForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Enter team name</mat-label>
+    <input
+      matInput
+      placeholder="Team name"
+      type="text"
+      formControlName="name"
+      (blur)="updateErrorMessage()"
+    />
+    @if (teamForm.invalid) {
+    <mat-error>{{ errorMessage() }}</mat-error>
+    }
+  </mat-form-field>
+</form>
