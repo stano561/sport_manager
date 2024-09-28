@@ -32,4 +32,8 @@ export class HomePageComponent {
   addTeam(): void {
     this.router.navigate(['/add-team']);
   }
+
+  teamDetail(teamId: number): void {
+    this.router.navigate(['/team', teamId]);
+  }
 }
