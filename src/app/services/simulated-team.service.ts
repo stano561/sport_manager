@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ITeam } from '../interfaces/team.interface';
-import { map, Observable, of, delay } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,13 +28,11 @@ export class SimulatedTeamService {
   }
 
   getTeams(): Observable<ITeam[]> {
-    return of(this.teams).pipe(delay(500));
+    return of(this.teams);
   }
 
   getTeamById(id: number): Observable<ITeam | null> {
     return of(this.teams).pipe(
-      delay(500),
-
       map((teams: ITeam[]): ITeam | null => {
         const teamSearchResult = teams.find((team) => team.id === id);
 
@@ -51,7 +49,7 @@ export class SimulatedTeamService {
     };
 
     this.teams.push(newTeam);
-    return of(newTeam).pipe(delay(500));
+    return of(newTeam);
   }
 
   updateTeam(teamId: number, name: string): Observable<ITeam | null> {
@@ -59,9 +57,9 @@ export class SimulatedTeamService {
 
     if (team) {
       team.name = name;
-      return of(team).pipe(delay(500));
+      return of(team);
     } else {
-      return of(null).pipe(delay(500));
+      return of(null);
     }
   }
 
