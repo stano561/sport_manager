@@ -8,5 +8,6 @@
   <mat-list-item role="listitem">
     {{ team.id }} | {{ team.name }}
   </mat-list-item>
+  <button mat-button [routerLink]="['/team', team.id]">Detail</button>
 </mat-list>
 }

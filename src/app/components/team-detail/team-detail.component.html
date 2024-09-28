@@ -1,0 +1,26 @@
+@if (team) {
+<mat-card>
+  <mat-card-title>Team name: {{ team.name }}</mat-card-title>
+  <mat-card-actions>
+    <button mat-button (click)="editTeam()">Edit team</button>
+    <button mat-button (click)="deleteTeam()">Delete team</button>
+    <button mat-button (click)="assignMemberToRoster()">
+      Assign member to roster
+    </button>
+  </mat-card-actions>
+</mat-card>
+}
+
+<mat-card>
+  <mat-card-title>Team members</mat-card-title>
+  <mat-list>
+    @for (roster of rosterData; track roster.memberId; let index = $index) {
+    <mat-list-item>
+      <p>
+        {{ getMemberNameById(roster.memberId) }} | role: {{ roster.role }} |
+        position: {{ roster.position || "N/A" }}
+      </p>
+    </mat-list-item>
+    }
+  </mat-list>
+</mat-card>

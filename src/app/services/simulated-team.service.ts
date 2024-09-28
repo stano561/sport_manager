@@ -42,10 +42,10 @@ export class SimulatedTeamService {
     );
   }
 
-  addTeam(name: string): Observable<ITeam> {
+  addTeam(teamName: string): Observable<ITeam> {
     const newTeam: ITeam = {
       id: this.generateId(),
-      name: name,
+      name: teamName,
     };
 
     this.teams.push(newTeam);

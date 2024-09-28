@@ -10,14 +10,28 @@ export const routes: Routes = [
     path: 'home',
     loadComponent: () =>
       import('./pages/home-page/home-page.component').then(
-        (m) => m.HomePageComponent
+        (component) => component.HomePageComponent
       ),
   },
   {
-    path: 'team',
+    path: 'add-team',
     loadComponent: () =>
-      import('./shared/components/team-form/team-form.component').then(
-        (m) => m.TeamFormComponent
+      import('./components/team-form/team-form.component').then(
+        (component) => component.TeamFormComponent
+      ),
+  },
+  {
+    path: 'team/:id',
+    loadComponent: () =>
+      import('./components/team-detail/team-detail.component').then(
+        (component) => component.TeamDetailComponent
+      ),
+  },
+  {
+    path: 'edit-team/:id',
+    loadComponent: () =>
+      import('./components/team-form/team-form.component').then(
+        (component) => component.TeamFormComponent
       ),
   },
 ];

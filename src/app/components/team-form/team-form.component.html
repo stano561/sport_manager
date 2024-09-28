@@ -1,0 +1,35 @@
+<mat-card>
+  <mat-card-title>{{
+    teamEditMode ? "Edit team" : "Add new team"
+  }}</mat-card-title>
+
+  <mat-card-content>
+    <form [formGroup]="teamForm" (ngSubmit)="saveTeam()">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter team name</mat-label>
+        <input
+          matInput
+          placeholder="Team name"
+          type="text"
+          formControlName="name"
+          (blur)="updateErrorMessage()"
+        />
+        @if (teamForm.invalid) {
+        <mat-error>{{ errorMessage() }}</mat-error>
+        }
+      </mat-form-field>
+
+      <div>
+        <button
+          mat-button
+          color="primary"
+          type="submit"
+          [disabled]="!teamForm.valid"
+        >
+          Save
+        </button>
+        <button mat-button type="button" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
