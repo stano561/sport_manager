@@ -1,41 +1,40 @@
 import { Injectable } from '@angular/core';
 import { ITeam } from '../interfaces/team.interface';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, of, delay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SimulatedTeamService {
-  private team1: ITeam = {
-    id: 1,
-    name: 'team1',
-    members: [
-      { name: 'name1', age: 18, role: 'player' },
-      { name: 'name2', age: 18, role: 'player' },
-      { name: 'name3', age: 18, role: 'coach' },
-    ],
-  };
-
-  private team2: ITeam = {
-    id: 2,
-    name: 'team2',
-    members: [
-      { name: 'name4', age: 18, role: 'player' },
-      { name: 'name5', age: 18, role: 'player' },
-      { name: 'name6', age: 18, role: 'both' },
-    ],
-  };
+  private team1: ITeam = { id: 1, name: 'team1' };
+  private team2: ITeam = { id: 2, name: 'team2' };
 
   private teams: ITeam[] = [this.team1, this.team2];
 
   constructor() {}
 
+  private generateId(): number {
+    if (this.teams.length > 0) {
+      let max: number = 0;
+      for (let i: number = 0; i < this.teams.length; i++) {
+        if (max <= this.teams[i].id) {
+          max = this.teams[i].id;
+        }
+      }
+      return max + 1;
+    } else {
+      return 1;
+    }
+  }
+
   getTeams(): Observable<ITeam[]> {
-    return of(this.teams);
+    return of(this.teams).pipe(delay(500));
   }
 
   getTeamById(id: number): Observable<ITeam | null> {
     return of(this.teams).pipe(
+      delay(500),
+
       map((teams: ITeam[]): ITeam | null => {
         const teamSearchResult = teams.find((team) => team.id === id);
 
@@ -45,8 +44,35 @@ export class SimulatedTeamService {
     );
   }
 
-  addTeam(team: ITeam): Observable<string> {
-    this.teams.push(team);
-    return of('success');
+  addTeam(name: string): Observable<ITeam> {
+    const newTeam: ITeam = {
+      id: this.generateId(),
+      name: name,
+    };
+
+    this.teams.push(newTeam);
+    return of(newTeam).pipe(delay(500));
+  }
+
+  updateTeam(teamId: number, name: string): Observable<ITeam | null> {
+    const team = this.teams.find((team) => team.id === teamId);
+
+    if (team) {
+      team.name = name;
+      return of(team).pipe(delay(500));
+    } else {
+      return of(null).pipe(delay(500));
+    }
+  }
+
+  deleteTeam(id: number): Observable<boolean> {
+    const teamIndex = this.teams.findIndex((team) => team.id === id);
+
+    if (teamIndex < 0) {
+      return of(false);
+    } else {
+      this.teams.splice(teamIndex, 1);
+      return of(true);
+    }
   }
 }
