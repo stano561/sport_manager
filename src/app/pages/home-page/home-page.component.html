@@ -1,0 +1,20 @@
+<div>
+  <p>Page with list of teams</p>
+  <button mat-button (click)="addTeam()">Add team</button>
+</div>
+
+@for (team of teams; track team.id) {
+<mat-list role="list">
+  <mat-list-item role="listitem">
+    {{ team.id }} | {{ team.name }}
+  </mat-list-item>
+
+  <mat-list role="list">
+    @for (member of team.members; track member.name) {
+    <mat-list-item role="listitem">
+      {{ member.name }} | {{ member.age }} | {{ member.role }}
+    </mat-list-item>
+    }
+  </mat-list>
+</mat-list>
+}
