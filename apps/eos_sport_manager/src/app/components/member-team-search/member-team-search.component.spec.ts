@@ -8,9 +8,8 @@ describe('MemberTeamSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MemberTeamSearchComponent]
-    })
-    .compileComponents();
+      imports: [MemberTeamSearchComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MemberTeamSearchComponent);
     component = fixture.componentInstance;

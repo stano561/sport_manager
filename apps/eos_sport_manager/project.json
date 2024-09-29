@@ -1,0 +1,98 @@
+{
+  "name": "eos_sport_manager",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "sourceRoot": "apps/eos_sport_manager/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "options": {
+        "outputPath": "dist/apps/eos_sport_manager",
+        "index": "apps/eos_sport_manager/src/index.html",
+        "browser": "apps/eos_sport_manager/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/eos_sport_manager/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/eos_sport_manager/public"
+          }
+        ],
+        "styles": [
+          "@angular/material/prebuilt-themes/azure-blue.css",
+          "apps/eos_sport_manager/src/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kB",
+              "maximumError": "1MB"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kB",
+              "maximumError": "4kB"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "eos_sport_manager:build:production"
+        },
+        "development": {
+          "buildTarget": "eos_sport_manager:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n"
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "polyfills": [
+          "zone.js",
+          "zone.js/testing"
+        ],
+        "tsConfig": "apps/eos_sport_manager/tsconfig.spec.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/eos_sport_manager/public"
+          }
+        ],
+        "styles": [
+          "@angular/material/prebuilt-themes/azure-blue.css",
+          "apps/eos_sport_manager/src/styles.scss"
+        ],
+        "scripts": []
+      }
+    }
+  }
+}
