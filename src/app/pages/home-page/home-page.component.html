@@ -10,9 +10,11 @@
 
 @for (team of teams; track team.id) {
 <mat-list role="list">
-  <mat-list-item role="listitem">
-    {{ team.id }} | {{ team.name }}
-  </mat-list-item>
-  <button mat-button (click)="teamDetail(team.id)">Detail</button>
+  <div class="row">
+    <mat-list-item role="listitem">
+      {{ team.id }} | {{ team.name }}
+    </mat-list-item>
+    <button mat-button (click)="teamDetail(team.id)">Detail</button>
+  </div>
 </mat-list>
 }
