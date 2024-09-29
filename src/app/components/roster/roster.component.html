@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-card-title>Add member to roster</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="assignemtToRosterForm" (ngSumbit)="assignMember()">
+      <mat-form-field appearance="fill">
+        <mat-label>Select member</mat-label>
+        <mat-select formControlName="memberId" (closed)="updateErrorMessage()">
+          @for (member of members; track member.id) {
+          <mat-option value="member.id">
+            {{ member.name }}
+          </mat-option>
+          }
+        </mat-select>
+        @if (assignemtToRosterForm.invalid) {
+        <mat-error>{{ errorMessage() }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Select role</mat-label>
+        <mat-select formControlName="role" (closed)="updateErrorMessage()">
+          <mat-option value="player">player</mat-option>
+          <mat-option value="coach">coach</mat-option>
+          <mat-option value="both">both</mat-option>
+        </mat-select>
+        @if (assignemtToRosterForm.invalid) {
+        <mat-error>{{ errorMessage() }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Position</mat-label>
+        <input
+          matInput
+          formControlName="position"
+          type="text"
+          placeholder="Member position"
+        />
+      </mat-form-field>
+
+      <button
+        mat-button
+        color="primary"
+        type="submit"
+        [disabled]="!assignemtToRosterForm.valid"
+      >
+        Assign
+      </button>
+      <button mat-button type="button" (click)="cancel()">Cancel</button>
+    </form>
+  </mat-card-content>
+</mat-card>

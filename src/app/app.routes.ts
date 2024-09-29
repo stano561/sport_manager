@@ -34,4 +34,11 @@ export const routes: Routes = [
         (component) => component.TeamFormComponent
       ),
   },
+  {
+    path: 'assign-member/:teamId',
+    loadComponent: () =>
+      import('./components/roster/roster.component').then(
+        (component) => component.RosterComponent
+      ),
+  },
 ];

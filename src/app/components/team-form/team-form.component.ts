@@ -63,7 +63,7 @@ export class TeamFormComponent implements OnInit {
   }
 
   saveTeam(): void {
-    if (this.teamEditMode && this.teamId !== null) {
+    if (this.teamEditMode && this.teamId !== null && this.teamForm.valid) {
       this.teamName = this.teamForm.value.name;
 
       this.subManager.newSubs = this.simulatedTeamService
@@ -76,14 +76,16 @@ export class TeamFormComponent implements OnInit {
           }
         });
     } else {
-      this.teamName = this.teamForm.value.name;
+      if (this.teamForm.valid) {
+        this.teamName = this.teamForm.value.name;
 
-      this.subManager.newSubs = this.simulatedTeamService
-        .addTeam(this.teamName)
-        .subscribe(() => {
-          console.log(this.teamName);
-          this.router.navigate(['/']);
-        });
+        this.subManager.newSubs = this.simulatedTeamService
+          .addTeam(this.teamName)
+          .subscribe(() => {
+            console.log(this.teamName);
+            this.router.navigate(['/']);
+          });
+      }
     }
   }
 
