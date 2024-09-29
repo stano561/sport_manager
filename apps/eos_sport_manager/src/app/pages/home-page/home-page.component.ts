@@ -5,11 +5,13 @@ import { SubscriptionManager } from '../../shared/subscription-manager';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [MatListModule, MatButtonModule, RouterModule],
+  imports: [MatListModule, MatButtonModule, RouterModule, MatMenuModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })
@@ -20,7 +22,8 @@ export class HomePageComponent {
 
   constructor(
     private simlatedTeamService: SimulatedTeamService,
-    private router: Router
+    private router: Router,
+    private themeService: ThemeService
   ) {
     this.subManager.newSubs = this.simlatedTeamService
       .getTeams()
@@ -35,5 +38,9 @@ export class HomePageComponent {
 
   teamDetail(teamId: number): void {
     this.router.navigate(['/team', teamId]);
+  }
+
+  setTheme(theme: string): void {
+    this.themeService.setTheme(theme);
   }
 }
