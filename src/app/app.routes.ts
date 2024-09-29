@@ -3,8 +3,8 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    loadComponent: () =>
+      import('./app.component').then((component) => component.AppComponent),
   },
   {
     path: 'home',
@@ -40,5 +40,12 @@ export const routes: Routes = [
       import('./components/roster/roster.component').then(
         (component) => component.RosterComponent
       ),
+  },
+  {
+    path: 'search',
+    loadComponent: () =>
+      import(
+        './components/member-team-search/member-team-search.component'
+      ).then((component) => component.MemberTeamSearchComponent),
   },
 ];

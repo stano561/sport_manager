@@ -1,0 +1,51 @@
+<mat-card>
+  <mat-card-title>Find team by member name</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="teamByMemberForm" (ngSubmit)="searchTeamByMemberName()">
+      <mat-form-field appearance="fill">
+        <mat-label>Member name</mat-label>
+        <input
+          matInput
+          placeholder="Member name"
+          type="text"
+          formControlName="nameSearch"
+          (blur)="updateErrorMessage()"
+        />
+        @if (teamByMemberForm.invalid) {
+        <mat-error>{{ errorMessage() }}</mat-error>
+        }
+      </mat-form-field>
+
+      <button
+        mat-button
+        color="primary"
+        type="submit"
+        [disabled]="!teamByMemberForm.valid"
+      >
+        Search
+      </button>
+
+      <button mat-button type="button" (click)="cancel()">Cancel</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  @if (teamsFound.length > 0) {
+  <mat-card-title>Teams found</mat-card-title>
+  <mat-card-content>
+    <mat-list>
+      @for (team of teamsFound; track team.id) {
+      <mat-list-item>
+        <div class="card-team__list-item">
+          <p>{{ team.name }}</p>
+          <button mat-button (click)="teamDetail(team)">Detail</button>
+        </div>
+      </mat-list-item>
+      }
+    </mat-list>
+  </mat-card-content>
+  } @else {
+  <mat-card-content>No teams found</mat-card-content>
+  }
+</mat-card>

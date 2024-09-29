@@ -47,7 +47,7 @@ export class RosterComponent implements OnInit {
     private router: Router
   ) {
     this.assignemtToRosterForm = this.fb.group({
-      memberId: [null, Validators.required],
+      member: [null, Validators.required],
       role: ['player', Validators.required],
       position: [''],
     });
@@ -67,7 +67,10 @@ export class RosterComponent implements OnInit {
     if (this.assignemtToRosterForm.valid) {
       const rosterData: IRoster = {
         teamdId: this.teamId,
-        memberId: this.assignemtToRosterForm.value.memberId,
+        member: {
+          id: this.assignemtToRosterForm.value.member.id,
+          name: this.assignemtToRosterForm.value.member.name,
+        },
         role: this.assignemtToRosterForm.value.role,
         position: this.assignemtToRosterForm.value.position,
       };
@@ -75,6 +78,7 @@ export class RosterComponent implements OnInit {
       this.subManager.newSubs = this.simulatedRosterService
         .addRosterData(rosterData)
         .subscribe(() => {
+          console.log(rosterData);
           this.router.navigate(['/team', this.teamId]);
         });
     }
@@ -86,10 +90,10 @@ export class RosterComponent implements OnInit {
   }
 
   updateErrorMessage(): void {
-    const memberIdControl = this.assignemtToRosterForm.get('memberId');
+    const memberControl = this.assignemtToRosterForm.get('member');
     const roleControl = this.assignemtToRosterForm.get('role');
 
-    if (memberIdControl?.hasError('required') && memberIdControl.touched) {
+    if (memberControl?.hasError('required') && memberControl.touched) {
       this.errorMessage.set('You must enter member id');
     } else if (roleControl?.hasError('required') && roleControl.touched) {
       this.errorMessage.set('You have to select role');

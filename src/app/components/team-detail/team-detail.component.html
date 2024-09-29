@@ -14,10 +14,10 @@
 <mat-card>
   <mat-card-title>Team members</mat-card-title>
   <mat-list>
-    @for (roster of rosterData; track roster.memberId; let index = $index) {
+    @for (roster of rosterData; track roster.member.id; let index = $index) {
     <mat-list-item>
       <p>
-        {{ getMemberNameById(roster.memberId) }} | role: {{ roster.role }} |
+        {{ getMemberNameById(roster.member.id) }} | role: {{ roster.role }} |
         position: {{ roster.position || "N/A" }}
       </p>
     </mat-list-item>
