@@ -66,6 +66,7 @@ export class RosterComponent implements OnInit {
   assignMember(): void {
     if (this.assignemtToRosterForm.valid) {
       const rosterData: IRoster = {
+        id: 0,
         teamdId: this.teamId,
         member: {
           id: this.assignemtToRosterForm.value.member.id,
@@ -75,12 +76,33 @@ export class RosterComponent implements OnInit {
         position: this.assignemtToRosterForm.value.position,
       };
 
+      // zistim si ci je clen priradeny v supiske ku tymu
+      // zavolam dotaz na service a poslem tam tymove id ktore mam z routy
+      // potom pouzijem metodu find na porovnanie id clena z supisky z formy
+      // s id clenom z supisky z service
+      let existingRosterData: IRoster | undefined;
       this.subManager.newSubs = this.simulatedRosterService
-        .addRosterData(rosterData)
-        .subscribe(() => {
-          console.log(rosterData);
-          this.router.navigate(['/team', this.teamId]);
+        .getRosterByTeamId(this.teamId)
+        .subscribe((rosterDataArr) => {
+          existingRosterData = rosterDataArr.find(
+            (roster) => roster.member.id === rosterData.member.id
+          );
         });
+
+      if (existingRosterData && existingRosterData !== undefined) {
+        this.subManager.newSubs = this.simulatedRosterService
+          .updateRosterData(existingRosterData.id, rosterData)
+          .subscribe(() => {
+            this.router.navigate(['/team', this.teamId]);
+          });
+      } else {
+        this.subManager.newSubs = this.simulatedRosterService
+          .addRosterData(rosterData)
+          .subscribe(() => {
+            console.log(rosterData);
+            this.router.navigate(['/team', this.teamId]);
+          });
+      }
     }
   }
 

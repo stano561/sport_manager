@@ -36,7 +36,7 @@
   <mat-card-content>
     <mat-list>
       @for (team of teamsFound; track team.id) {
-      <mat-list-item>
+      <mat-list-item role="listitem">
         <div class="card-team__list-item">
           <p>{{ team.name }}</p>
           <button mat-button (click)="teamDetail(team)">Detail</button>
